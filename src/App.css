@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto';
+}
+
+.wrapper {
+  padding: 0 10%;
+  margin: 20px 0;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  gap: 20px;
+}
+
+
+@media screen and (max-width:600px) {
+  .wrapper {
+    padding: 0 5px;
+  }
+
+}
+.upperside {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.upperside img {
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  border-radius: 10px;
+
+}
+
+.upperside img:hover {
+  transform: scale(1.1);
+  transition: all 0.15s linear;
+  border-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Design for Sidebar Start*/
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.sidebar ul  {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sidebar ul li {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  transition: all 0.15s linear;
+}
+
+.sidebar ul li:hover {
+  border-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+.sidebar ul li img{
+  height: 40px;
+  width: 40px;
+}
+
+
+@media screen and (max-width:600px) {
+  .sidebar ul li span {
+    display: none;
+  }
+  .sidebar {
+    width: 60px;
+  }
+}
+
+
+ /* Styling for the pop-up */
+ .popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 999;
+  border-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  height: 70%;
+  width: 60%;
+}
+
+
+
+
+
+/* Design for Sidebar End*/
+
+
+
+/* Design for Box Start*/
+
+.box {
+  height: 90vh;
+  border-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.rightside {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+
+/* Design for Box End*/
+
+
+
+/* Meme Pop Up Design Start */
+.popup img {
+  height: 17px;
+  width: 17px;
+}
+
+
+
+
+/* Meme Pop Up Design End */
+
+
+/* Design Insert Meme Pop Up Start */
+.memepopup {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  gap: 20px;
+}
+
+.sidebar2 ul {
+  overflow-y: auto;
+  height: 550px;
+}
+
+
+
+
+/* Design Insert Meme Pop Up End */
+
+
+/* Styles for day mode */
+.container {
+  background-color: #fff;
+  color: #333;
+  transition: background-color 0.5s, color 0.5s;
+}
+
+/* Styles for night mode */
+.container.night-mode {
+  background-color: #333;
+  color: #fff;
+}
+
+
+/* meme_cartoon */
+
+.item {
+  display: none;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  gap: 10px;
+  overflow-y: auto;
+  height: 520px;
+  margin-top: 30px;
+
+}
+
+.item img {
+  height: 200px;
+  width: 150px;
+  object-fit: cover;
+  
+}
+
+.active {
+  display: grid;
+}
+
+
+.addtext {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 999;
+  border-color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  height: 30px;
+  width: 300px;
+}
+
+.addtext img  {
+  height: 17px;
+  width: 17px;
+}
