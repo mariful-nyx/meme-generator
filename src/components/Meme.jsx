@@ -1,416 +1,412 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect } from "react";
 
+import bin from "../assets/icon/bin.png";
+import camera from "../assets/icon/camera.png";
+import addTextIcon from "../assets/icon/text.png";
+import hrLine from "../assets/icon/hrline.png";
+import vrLine from "../assets/icon/vrline.png";
 
+import meme from "../assets/icon/meme.png";
+import inserImage from "../assets/icon/image.png";
+import fillColor from "../assets/icon/bg-color.png";
 
-import bin from '../assets/icon/bin.png'
-import camera from '../assets/icon/camera.png'
-import addTextIcon from '../assets/icon/text.png'
-import hrLine from '../assets/icon/hrline.png'
-import vrLine from '../assets/icon/vrline.png'
-import close from '../assets/icon/close.png'
-import meme from '../assets/icon/meme.png'
-import inserImage from '../assets/icon/image.png'
-
-
-import a from '../assets/images/alone/0.png'
-import b from '../assets/images/alone/1.png'
-import c from '../assets/images/alone/2.png'
-import d from '../assets/images/alone/3.png'
-import e from '../assets/images/alone/4.png'
-import f from '../assets/images/alone/5.png'
-
-
+import ColorPicker from "./BackgroundColor";
+import MemeImage from "./MemeImage";
+import AddText from "./AddText";
 
 const Meme = () => {
+  let canvas = useRef(null);
 
-  
-
-  let canvas = useRef(null)
-  
-  let [objects, setObjects] = useState([])
-
+  let [objects, setObjects] = useState([]);
 
   let handleDelete = (e) => {
-    e.preventDefault()
-    let canvas = document.getElementById('canvas')
-    let ctx = canvas.getContext('2d')
+    e.preventDefault();
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    window.location.reload()
-  
-
-  }
-
+    window.location.reload();
+  };
 
   let handleSave = (e) => {
-    e.preventDefault()
-    console.log('save')
+    e.preventDefault();
 
-    const canvas = document.getElementById('canvas')
-    
-    let image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"); 
-    window.location.href=image; // it will save locally
-  }
+    const canvas = document.getElementById("canvas");
 
+    let image = canvas
+      .toDataURL("image/png")
+      .replace("image/png", "image/octet-stream");
 
-   
-  
+    var link = document.createElement('a');
 
-  const togglePopup = (e) => {
-    e.preventDefault()
-      let popup = document.getElementById("popup");
-      
-      if (popup.style.display === "none") {
-          popup.style.display = "block";
-      } else {
-          popup.style.display = "none";
-      }
-  }
+    link.href = image;
 
-  const inputPopUp = (e) => {
-    e.preventDefault()
-      let popup = document.getElementById("addtext");
-      
-      if (popup.style.display === "none") {
-          popup.style.display = "block";
-      } else {
-          popup.style.display = "none";
-      }
-  }
+    link.download = `image.png`;
 
+    link.click();
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  let toggleBackgroundColor = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const [openMeme, setOpenMeme] = useState(true);
+  const [openAddText, setOpenAddText] = useState(false);
+
+  let togglePopup = () => {
+    setOpenMeme(!openMeme);
+    setOpenAddText(false);
+  };
+
+  const inputPopUp = () => {
+    setOpenAddText(!openAddText);
+    setOpenMeme(false);
+  };
 
   const clickInsertImage = (e) => {
-    e.preventDefault()
-    document.getElementById('insertImage').click()
-  }
-
-
-  function showCategory(category) {
-      // Hide all items
-      const items = document.querySelectorAll('.item');
-      items.forEach(item => {
-          item.classList.remove('active');
-      });
-
-      // Show the selected category
-      const selectedCategory = document.getElementById(category.toLowerCase());
-      selectedCategory.classList.add('active');
-  }
-
-
-
+    e.preventDefault();
+    document.getElementById("insertImage").click();
+  };
 
   let addHrLine = (e) => {
-    e.preventDefault()
-    setObjects([...objects, {'type': 'hrline', 'x': 0, 'y': 300, 'w': 800, 'h':5, 'dragging': false}])
-  }
-
+    e.preventDefault();
+    setObjects([
+      ...objects,
+      { type: "hrline", x: 0, y: 360, w: 1280, h: 5, dragging: false },
+    ]);
+  };
 
   let addVrLine = (e) => {
-    e.preventDefault()
-    setObjects([ ...objects, {'type': 'vrline', 'x':400 , 'y': 0, 'w': 5, 'h': 600, 'dragging': false}])
-  }
-
+    e.preventDefault();
+    setObjects([
+      ...objects,
+      { type: "vrline", x: 640, y: 0, w: 5, h: 720, dragging: false },
+    ]);
+  };
 
   let addImage = (e) => {
-      e.preventDefault()
+    e.preventDefault();
 
-      setObjects([...objects, {'type': 'image', 'image': URL.createObjectURL(e.target.files[0]), 'x': 50, 'y': 50, 'w': 100, 'h': 100, 'dragging': false}])
-
-  }
-
+    setObjects([
+      ...objects,
+      {
+        type: "image",
+        image: URL.createObjectURL(e.target.files[0]),
+        x: 50,
+        y: 50,
+        w: 200,
+        h: 210,
+        dragging: false,
+      },
+    ]);
+  };
 
   let addText = (e) => {
-    e.preventDefault()
-    console.log(e.target.memetext.value, "====")
-    
-    setObjects([...objects, {'type': 'text', 'text': e.target.memetext.value, 'x': 50, 'y': 50, 'w': 100, 'h': 100, 'dragging': false}])
+    e.preventDefault();
 
-  }
-
-
+    setObjects([
+      ...objects,
+      {
+        type: "text",
+        text: e.target.memetext.value,
+        x: 100,
+        y: 150,
+        w: 100,
+        h: 100,
+        dragging: false,
+        style: "",
+        color: "black",
+        fontSize: 36,
+        fontFamily: "serif",
+      },
+    ]);
+  };
 
   let [dragok, setDragok] = useState(false);
 
-  let [startX, setStartX] = useState(0)
-  let [startY, setStartY] = useState(0)
+  let [startX, setStartX] = useState(0);
+  let [startY, setStartY] = useState(0);
 
+
+
+  
   let handleMouseDown = (e) => {
-
     e.preventDefault();
     e.stopPropagation();
-
 
     let mx = parseInt(e.pageX - e.target.offsetLeft);
     let my = parseInt(e.pageY - e.target.offsetTop);
 
-    setDragok(false)
+    setDragok(false);
 
-    for(let i=0;i<objects.length;i++){
-        let r=objects[i];
+    for (let i = 0; i < objects.length; i++) {
+      let r = objects[i];
 
-        if(mx >= r.x && mx <= r.x+r.w && my >= r.y && my<= r.y+r.h){
-            
-            setDragok(true);
-            r.dragging=true;
+      if (r.type === "text") {
+        let canvas = document.getElementById("canvas");
+        let ctx = canvas.getContext("2d");
+
+        let textWidth = ctx.measureText(r.text).width;
+        let textHeight = r.fontSize;
+
+        if (
+          mx >= r.x &&
+          mx <= r.x + textWidth &&
+          my >= r.y - textHeight &&
+          my <= r.y
+        ) {
+          setDragok(true);
+          r.dragging = true;
         }
+      } else if (r.type === "image") {
+        if (mx >= r.x && mx <= r.x + r.w && my >= r.y && my <= r.y + r.h) {
+          setDragok(true);
+          r.dragging = true;
+        }
+      } else if (mx >= r.x && mx <= r.x + r.w && my >= r.y && my <= r.y + r.h) {
+        setDragok(true);
+        r.dragging = true;
+      }
     }
+
 
     setStartX(mx);
     setStartY(my);
-}
+  };
 
+  let handleMouseUp = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-let handleMouseUp = (e) => {
+    setDragok(false);
 
-  e.preventDefault();
-  e.stopPropagation();
-
-
-  setDragok(false);
-
-  for(let i=0;i<objects.length;i++){
-      objects[i].dragging=false;
-  }
-}
-
-
+    for (let i = 0; i < objects.length; i++) {
+      objects[i].dragging = false;
+    }
+  };
 
   let handleMouseMove = (e) => {
-
-    if (dragok){
+    if (dragok) {
       e.preventDefault();
       e.stopPropagation();
 
       let mx = parseInt(e.pageX - e.target.offsetLeft);
       let my = parseInt(e.pageY - e.target.offsetTop);
 
-      
-    
-      let dx=mx-startX;
-      let dy=my-startY;
+      let dx = mx - startX;
+      let dy = my - startY;
 
+      for (let i = 0; i < objects.length; i++) {
+        let r = objects[i];
 
-      for(let i=0;i<objects.length;i++){
-          let r=objects[i];
-          if(r.dragging){
-              r.x+=dx;
-              r.y+=dy;
-            
-          }
+        if (r.dragging && r.type === "image") {
+          r.x = mx - r.w / 2;
+          r.y = my - r.h / 2;
+        }
+        if (r.dragging) {
+          r.x += dx;
+          r.y += dy;
+
+          clearCanvas();
+          draw();
+        }
       }
-      
-      draw();
 
       setStartX(mx);
       setStartY(my);
 
     }
-}
+  };
 
+  let [selectedColor, setSelectedColor] = useState("#ffffff");
 
+  let handleBgColor = (color) => {
+    setSelectedColor(color);
+  };
 
-
-
-
-  useEffect(()=>{
-    draw()
-
-  }, [objects])
-
-
+  useEffect(() => {
+    draw();
+  }, [objects, selectedColor]);
 
   let clearCanvas = () => {
-    let canvas = document.getElementById('canvas')
-    let ctx = canvas.getContext('2d')
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-   
-  }
-
-
+  };
 
   let draw = () => {
-    let canvas = document.getElementById('canvas')
-    let ctx = canvas.getContext('2d')
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
 
-    clearCanvas()
+    clearCanvas();
 
+    for (let i = 0; i < objects.length; i++) {
+      let obj = objects[i];
 
+      if (obj.type === "text") {
+        ctx.font = `${obj.style} ${obj.fontSize}px ${obj.fontFamily}`;
 
-    for(let i=0;i<objects.length;i++){
-        let obj=objects[i];
+        ctx.fillStyle = obj.color;
+        ctx.fillText(obj.text, obj.x, obj.y);
+      }
 
-        if (obj.type === 'text') {
-      
-          ctx.font = "36px serif"
-          ctx.fillText(obj.text, obj.x, obj.y)
-  
-        } 
-        
-        if (obj.type === "image") {
-          let image = new Image();
-          
-          image.src = obj.image;
-  
-          image.onload = () => {
-            ctx.drawImage(image, 70, 60, 100, 100);
-          };
-        } 
-        
-        if (obj.type === "hrline") {
-          
-          ctx.fillRect(obj.x, obj.y, obj.w, obj.h)
-  
-        } 
-        
-        if (obj.type === "vrline") {
-          
-          ctx.fillRect(obj.x, obj.y, obj.w, obj.h)
-        }
+      if (obj.type === "image") {
+        let image = new Image();
+
+        image.src = obj.image;
+        image.crossOrigin = 'anonymous'
+
+        obj.w = image.width; // update current image width to objects
+        obj.h = image.height; // update current image height to objects
+
+        image.onload = () => {
+          ctx.globalCompositeOperation = "source-over";
+          ctx.drawImage(image, obj.x, obj.y, obj.w, obj.h);
+        };
+      }
+
+      if (obj.type === "hrline") {
+        ctx.fillStyle = "black";
+        ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+      }
+
+      if (obj.type === "vrline") {
+        ctx.fillStyle = "black";
+        ctx.fillRect(obj.x, obj.y, obj.w, obj.h);
+      }
     }
-  
-  }
 
-  
- 
+    ctx.globalCompositeOperation = "destination-over";
+    ctx.fillStyle = selectedColor;
+    ctx.fillRect(0, 0, 1280, 720);
+  };
+
   return (
+    <>
+      <div className="container1">
+        <div className="wrapper1">
+          <div className="leftside">
+            <div className="sidebar">
+              <ul>
+                <li
+                  className={
+                    openAddText === true ? "feature active" : "feature"
+                  }
+                  onClick={inputPopUp}
+                >
+                  <img src={addTextIcon} alt="addtext" />
+                  <span>Add Text</span>
+                </li>
 
-  <>
-    <div className='container'>
-        <div className='wrapper'>
-          <div className='leftside'>
-          <div className='sidebar'>
-          <ul>
-            <li onClick={inputPopUp}><img src={addTextIcon} alt='addtext'/><span>Add Text</span></li>
-            <li id='addhrline' onClick={addHrLine}><img src={hrLine} alt='hrline' /><span>Add Horizontal Line</span></li>
-            <li id='addvrline' onClick={addVrLine}><img src={vrLine} alt='vrline' /><span>Add Vertical Line</span></li>
-            <li id='inserimage' onClick={clickInsertImage}>
-              <img src={inserImage} alt='insertimage'/>
-              <span>Insert Image</span> 
-            </li>
+                <li id="addhrline" className="feature" onClick={addHrLine}>
+                  <img src={hrLine} alt="hrline" />
+                  <span>Add Horizontal Line</span>
+                </li>
 
-            <input 
-              type='file' 
-              id='insertImage' 
-              style={{display: 'none'}} 
-              name='image'
-              onChange={(e)=>addImage(e)}
-            />
+                <li id="addvrline" className="feature" onClick={addVrLine}>
+                  <img src={vrLine} alt="vrline" />
+                  <span>Add Vertical Line</span>
+                </li>
 
-      
-            <li onClick={togglePopup}><img src={meme} alt='meme' /><span>Insert Meme</span></li>
-           
-            <div id="addtext" className="addtext">
-                <img src={close} alt='close' onClick={inputPopUp} style={{position:'absolute', right:20}} />
+                <li
+                  id="inserimage"
+                  className="feature"
+                  onClick={clickInsertImage}
+                >
+                  <img src={inserImage} alt="insertimage" />
+                  <span>Insert Image</span>
+                </li>
 
-            <form onSubmit={(e)=>addText(e)} id='addtext'>
-                  <input type='text' name='memetext' placeholder='Add text' id='memetext' />
-                  <input type='submit' id='submit' value='Add'  />
-            </form>
-                
+                <input
+                  type="file"
+                  id="insertImage"
+                  className="feature"
+                  style={{ display: "none" }}
+                  name="image"
+                  onChange={(e) => addImage(e)}
+                />
+
+                <li
+                  className={openMeme === true ? "feature active" : "feature"}
+                  onClick={togglePopup}
+                >
+                  <img src={meme} alt="meme" />
+                  <span>Insert Meme</span>
+                </li>
+
+                <li
+                  className={isOpen === true ? "feature active" : "feature"}
+                  onClick={toggleBackgroundColor}
+                >
+                  <img src={fillColor} alt="" />
+                  <span>Background Color</span>
+                </li>
+              </ul>
             </div>
-
-            <div id="popup" className="popup">
-                <img src={close} alt='close' onClick={togglePopup} style={{position:'absolute', right:20}} />
-                <div className='memepopup'>
-                  <div className='sidebar2'>
-                      <ul>
-                          <li onClick={(e)=>showCategory(e.target.innerText)}>Alone</li>
-                          <li onClick={(e)=>showCategory(e.target.innerText)}>Cereal</li>
-                          <li onClick={(e)=>showCategory(e.target.innerText)}>Boy</li>
-                          <li onClick={(e)=>showCategory(e.target.innerText)}>Girl</li>
-                          <li onClick={(e)=>showCategory(e.target.innerText)}>Computer</li>
-                          <li onClick={(e)=>showCategory(e.target.innerText)}>Yao Ming</li>
-                          <li onClick={(e)=>showCategory(e.target.innerText)}>Troll</li>
-                          <li onClick={(e)=>showCategory(e.target.innerText)}>Other</li>
-                      </ul>
-                  </div>
-                  <div id='alone' className='item active' >
-                        <img src={a} alt='' />
-                        <img src={b} alt='' />
-                        <img src={c} alt='' />
-                        <img src={d} alt='' />
-                        <img src={e} alt='' />
-                        <img src={f} alt=''/>
-                  </div>
-                  <div id='cereal' className='item' >
-                        <img src={d} alt='' />
-                        <img src={e} alt='' />
-                        <img src={f} alt=''/>
-                  </div>
-                  <div id='boy' className='item' >
-                        <img src={b} alt='' />
-                        <img src={c} alt='' />
-                        <img src={d} alt='' />
-                  </div>
-                  <div id='girl' className='item' >
-                        <img src={a} alt='' />
-                        <img src={b} alt='' />
-                  </div>
-                  <div id='computer' className='item' >
-                  <img src={e} alt='' />
-                    <img src={f} alt=''/>
-                  </div>
-                  <div id='yaoming' className='item' >
-                    <img src={a} alt='' />
-                    <img src={c} alt='' />
-                    <img src={d} alt='' />
-                  </div>
-                  <div id='troll' className='item' >
-                  <img src={a} alt='' />
-                    <img src={b} alt='' />
-                    <img src={c} alt='' />
-                    <img src={d} alt='' />
-                  </div>
-                  <div id='other' className='item' >
-                  <img src={b} alt='' />
-                    <img src={c} alt='' />
-                    <img src={d} alt='' />
-                    <img src={e} alt='' />
-                    <img src={f} alt=''/>
-                  </div>
-                  
-
-                </div>
-            </div>
-        </ul>
- </div>
-
-
- 
-
-  
-        </div>
-          <div className='rightside'>
-            <div className='upperside'>
-              <img onClick={handleDelete} src={bin} alt='bin'/>
-              <img 
-              onClick={handleSave} 
-              src={camera} alt='camera'
-              id='captureButton'
+          </div>
+          <div className="middleside">
+            {openAddText && (
+              <AddText
+                inputPopUp={inputPopUp}
+                addText={addText}
+                objects={objects}
+                draw={draw}
               />
+            )}
+
+            {openMeme && (
+              <MemeImage
+                togglePopup={togglePopup}
+                addImage={addImage}
+                setObjects={setObjects}
+                objects={objects}
+              />
+            )}
+
+            <div style={{ position: "absolute", bottom: 150 }}>
+              {isOpen && (
+                <ColorPicker
+                  defaultColor={selectedColor}
+                  onChange={handleBgColor}
+                />
+              )}
+            </div>
+          </div>
+          <div className="rightside mt-5">
+            <div className="upperside">
+              <div className="delete">
+                <img onClick={handleDelete} src={bin} alt="bin" />
+              </div>
+              <div className="save">
+                <img
+                  onClick={handleSave}
+                  src={camera}
+                  alt="camera"
+                  id="captureButton"
+                />
+              </div>
             </div>
             <div>
-              <canvas 
-                ref={canvas} 
-                height={600} 
-                width={800} 
-                style={{border: '1px solid gray'}} id='canvas'
+              <canvas
+                ref={canvas}
+                height={720}
+                width={1280}
+                style={{ border: "1px solid gray" }}
+                id="canvas"
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
                 onMouseMove={handleMouseMove}
-                />
-
-
+               
+              />
             </div>
-            </div>
-            
           </div>
         </div>
+      </div>
+    </>
+  );
+};
 
-  </>
-  )
-}
-
-export default Meme
+export default Meme;
