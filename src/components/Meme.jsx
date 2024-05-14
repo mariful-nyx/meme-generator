@@ -396,7 +396,7 @@ const Meme = () => {
               )}
             </div>
           </div>
-          <div className="rightside mt-5">
+          <div className="rightside pt-3">
             <div className="upperside">
               <div className="delete">
                 <img onClick={handleDelete} src={bin} alt="bin" />

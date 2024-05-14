@@ -270,10 +270,15 @@ body {
   .wrapper1 {
     width: 100vw;
   }
+
+  .rightside {
+    margin: 0 !important;
+  }
   .rightside, .middleside, .leftside {
     width: 97vw !important;
   }
   .upperside {
+    margin: 0;
     width: 90vw;
   }
 
