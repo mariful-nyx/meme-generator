@@ -75,7 +75,7 @@ const Meme = () => {
     e.preventDefault();
     setObjects([
       ...objects,
-      { type: "hrline", x: 0, y: 360, w: 1280, h: 5, dragging: false },
+      { type: "hrline", x: 0, y: canvas.current.height/2, w: canvas.current.width, h: 5, dragging: false },
     ]);
   };
 
@@ -83,7 +83,7 @@ const Meme = () => {
     e.preventDefault();
     setObjects([
       ...objects,
-      { type: "vrline", x: 640, y: 0, w: 5, h: 720, dragging: false },
+      { type: "vrline", x: canvas.current.width/2, y: 0, w: 5, h: canvas.current.height, dragging: false },
     ]);
   };
 
@@ -205,15 +205,18 @@ const Meme = () => {
         if (r.dragging && r.type === "image") {
           r.x = mx - r.w / 2;
           r.y = my - r.h / 2;
+    
         }
         if (r.dragging) {
           r.x += dx;
           r.y += dy;
 
-          clearCanvas();
-          draw();
         }
+
+        draw()
       }
+
+      
 
       setStartX(mx);
       setStartY(my);
@@ -230,6 +233,8 @@ const Meme = () => {
   useEffect(() => {
     draw();
   }, [objects, selectedColor]);
+
+  console.log(objects)
 
   let clearCanvas = () => {
     let canvas = document.getElementById("canvas");
@@ -257,7 +262,6 @@ const Meme = () => {
         let image = new Image();
 
         image.src = obj.image;
-        image.crossOrigin = 'anonymous'
 
         obj.w = image.width; // update current image width to objects
         obj.h = image.height; // update current image height to objects
@@ -283,6 +287,20 @@ const Meme = () => {
     ctx.fillStyle = selectedColor;
     ctx.fillRect(0, 0, 1280, 720);
   };
+
+  let [height, setHeight] = useState(window.innerHeight)
+  let [width, setWidth] = useState(window.innerWidth)
+
+
+
+  let reSizeHandle = () => {
+    setHeight(window.innerHeight)
+    setWidth(window.innerWidth)
+  }
+
+  window.onresize = reSizeHandle
+
+
 
   return (
     <>
@@ -363,6 +381,7 @@ const Meme = () => {
                 addImage={addImage}
                 setObjects={setObjects}
                 objects={objects}
+                draw={draw}
               />
             )}
 
@@ -390,10 +409,11 @@ const Meme = () => {
               </div>
             </div>
             <div>
+              
               <canvas
                 ref={canvas}
-                height={720}
-                width={1280}
+                height={height*0.8}
+                width={width*0.6}
                 style={{ border: "1px solid gray" }}
                 id="canvas"
                 onMouseDown={handleMouseDown}

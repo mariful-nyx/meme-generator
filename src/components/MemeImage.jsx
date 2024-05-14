@@ -179,9 +179,9 @@ import o30 from '../assets/images/other/29.png'
 
 
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-const MemeImage = ({togglePopup, setObjects, objects}) => {
+const MemeImage = ({togglePopup, setObjects, objects, draw}) => {
 
 
     let [activeCategory, setActiveCategory] = useState("Alone")
@@ -205,20 +205,27 @@ const MemeImage = ({togglePopup, setObjects, objects}) => {
     }
 
 
+   
+
+
 
     let onClickImage = (e) => {
         e.preventDefault()
+        // e.persist();
+        // e.stopPropagation()
+        
         setObjects([...objects, {'type': 'image', 'image': e.target.src, 'x': 50, 'y': 50, 'w': 120, 'h': 100, 'dragging': false}])
+
     }
-
-
 
 
   return (
     <div>
           <div id="popup" className="popup">
             <button type="button" className="btn-close" aria-label="Close" onClick={togglePopup}></button>
-            <div className='memepopup pt-3'>
+            <br/> <br/>
+            <strong>Meme Images</strong>
+            <div className='memepopup'>
             <div className='sidebar2'>
                 <ul>
                     <li onClick={(e)=>showCategory(e.target.innerText)} className={activeCategory==="Alone" ? 'category active' : 'category'}>Alone</li>
@@ -229,21 +236,23 @@ const MemeImage = ({togglePopup, setObjects, objects}) => {
                     <li onClick={(e)=>showCategory(e.target.innerText)} className={activeCategory==="YaoMing" ? 'category active' : 'category'}>YaoMing</li>
                     <li onClick={(e)=>showCategory(e.target.innerText)} className={activeCategory==="Troll" ? 'category active' : 'category'}>Troll</li>
                     <li onClick={(e)=>showCategory(e.target.innerText)} className={activeCategory==="Other" ? 'category active' : 'category'}>Other</li>
+        
                 </ul>
             </div>
             <div className='item_list'>
+
                 <div id='alone' className='item active' >
-                        <img src={a2} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a3} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a4} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a5} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a6} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a7} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a8} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a9} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a10} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a11} alt='' onClick={(e)=>onClickImage(e)}/>
-                        <img src={a12} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a2} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a3} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a4} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a5} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a6} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a7} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a8} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a9} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a10} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a11} alt='' onClick={(e)=>onClickImage(e)}/>
+                    <img src={a12} alt='' onClick={(e)=>onClickImage(e)}/>
                 </div>
                 <div id='cereal' className='item' >
                     <img src={c1} alt='' onClick={(e)=>onClickImage(e)}/>

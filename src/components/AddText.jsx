@@ -107,7 +107,8 @@ const AddText = ({inputPopUp , addText, objects, draw}) => {
 
          <div id="addtext" className="addtext ">
             <button type="button" className="btn-close close" aria-label="Close" onClick={inputPopUp}></button>
-
+            <br/> <br/>
+            <strong>Add Text</strong>
             <form onSubmit={(e)=>addText(e)} className='pt-5' >
               {/* <button onClick={handleBold}>Bold</button> */}
                 <div role='textbox' contentEditable='true' className='form-control' ref={textRef} value={text} onInput={onChangeTextHandler}>
@@ -153,7 +154,7 @@ const AddText = ({inputPopUp , addText, objects, draw}) => {
               </select>
             </div>
 
-            <div>
+            <div className='font-color'>
               <label>Font Color</label>
               <ColorPicker defaultColor={selectedColor} onChange={handleBgColor}/>
             </div>

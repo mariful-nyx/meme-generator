@@ -11,9 +11,27 @@ body {
 .wrapper1 {
   display: grid;
   grid-template-columns: 1fr 5fr 15fr;
-  gap: 10px;
   padding-right: 50px;
 }
+
+
+.leftside {
+ 
+}
+
+.middleside {
+  width: 250px;
+  height: 100vh;
+
+}
+
+.rightside {
+  margin-left: 10px;
+}
+
+
+
+
 
 @media screen and (max-width: 600px) {
   .wrapper1 {
@@ -91,12 +109,13 @@ canvas {
 
 .feature:hover {
   border-color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); */
+  background-color: #dddddd;
 }
 
 .feature.active {
   border-color: white;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  background-color: #dddddd;
 }
 
 .sidebar ul li img {
@@ -115,7 +134,7 @@ canvas {
 .popup {
   background-color: white;
   color: black;
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
   z-index: 999;
   border-color: white;
@@ -130,7 +149,7 @@ canvas {
 /* Design for Box Start*/
 
 .box {
-  /* height: 90vh; */
+
   border-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -145,11 +164,6 @@ canvas {
 
 /* Design for Box End*/
 
-/* Meme Pop Up Design Start */
-.popup img {
-  height: 17px;
-  width: 17px;
-}
 
 /* Meme Pop Up Design End */
 
@@ -157,30 +171,29 @@ canvas {
 .memepopup {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
   width: 100%;
 }
 
 
 
 .sidebar2 ul {
-  overflow-x: auto;
-  width: 350px;
-  display: flex;
+  overflow-x: scroll;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
-  justify-content: center;
   align-items: center;
   cursor: default;
   box-sizing: border-box;
   padding: 10px 0;
-  padding-left: 250px;
 }
 
 .sidebar2 ul li {
   list-style: none;
   padding: 5px 10px;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: #e7e7e7;
-  width: 200px;
   transition: all 0.15s ease;
 }
 
@@ -211,25 +224,28 @@ canvas {
 
 /* meme_cartoon */
 .item_list {
-  height: 760px;
-  padding-bottom: 30px;
+  height: 70vh;
+  width: 100%;
 }
 
 .item {
   display: none;
   grid-template-columns: 1fr 1fr;
-
+  justify-items: center;
   gap: 10px;
+  height:70vh;
   overflow-y: auto;
-  height: 720px;
   margin-top: 30px;
-  width: 350px;
+
 }
 
 .item img {
-  height: 200px;
-  width: 150px;
+  height: 90px;
+  width: 90px;
   object-fit: cover;
+  background-color: #dddddd;
+  padding: 10px;
+  border-radius: 5px;
 }
 
 .item img:hover {
@@ -237,7 +253,7 @@ canvas {
   transform: scale(0.97);
 }
 
-.active {
+.item.active {
   display: grid;
 }
 
@@ -259,9 +275,112 @@ canvas {
   width: 17px;
 }
 
-.middleside {
-  width: 400px;
-  height: 100vh;
+
+
+
+@media screen and (max-width:1008px) {
+
+}
+
+@media screen and (max-width:920) {
+  .sidebar {
+    
+  }
+}
+
+@media screen and (max-width:600px) {
+  .rightside {
+    width: 600px;
+  }
+  
 }
 
 
+@media screen and (max-width:930px) {
+  .wrapper1 {
+    display: flex ;
+    flex-direction: column-reverse;
+    padding-right: 0;
+    position: relative;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+  canvas {
+    height: 60vh;
+    width: 95vw;
+  }
+
+  .leftside {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 70px;
+  }
+
+  .sidebar ul li {
+    height: 60px;
+  }
+
+
+  .addtext {
+    height: 400px;
+    width: 95vw;
+    position: absolute;
+    bottom: 50px;
+  }
+
+  .font-color {
+    display: none;
+  }
+
+  .middleside {
+    position: absolute;
+    bottom: 30px;
+    height: 400px;
+  }
+
+  
+
+  .rightside {
+    height: 100vh;
+  }
+
+
+  .sidebar {
+    height: 50px;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .popup {
+    height: 350px !important;
+    width: 95vw;
+  }
+
+  .item {
+    grid-template-rows: 1fr;
+    justify-items: center;
+    gap: 10px;
+    height: 120px;
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 30px;
+  }
+
+  .item.active {
+    display: flex;
+    flex-direction: row;
+   
+    overflow-x: scroll;
+
+  }
+
+
+
+
+
+}
