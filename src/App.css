@@ -7,31 +7,23 @@ body {
   font-family: "Roboto";
 }
 
-
 .wrapper1 {
   display: grid;
   grid-template-columns: 1fr 5fr 15fr;
   padding-right: 50px;
 }
 
-
 .leftside {
- 
 }
 
 .middleside {
   width: 250px;
   height: 100vh;
-
 }
 
 .rightside {
   margin-left: 10px;
 }
-
-
-
-
 
 @media screen and (max-width: 600px) {
   .wrapper1 {
@@ -39,11 +31,7 @@ body {
   }
 }
 
-canvas {
-  border-color: white;
-  border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
+
 
 .upperside {
   display: flex;
@@ -68,7 +56,6 @@ canvas {
   transform: scale(0.95);
   transition: all 0.15s linear;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-  
 }
 
 /* Design for Sidebar Start*/
@@ -127,7 +114,6 @@ canvas {
   .sidebar ul li span {
     display: none;
   }
-
 }
 
 /* Styling for the pop-up */
@@ -140,7 +126,7 @@ canvas {
   border-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   width: 100%;
-  margin:0;
+  margin: 0;
   height: 100vh;
 }
 
@@ -149,7 +135,6 @@ canvas {
 /* Design for Box Start*/
 
 .box {
-
   border-color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
@@ -164,7 +149,6 @@ canvas {
 
 /* Design for Box End*/
 
-
 /* Meme Pop Up Design End */
 
 /* Design Insert Meme Pop Up Start */
@@ -176,13 +160,12 @@ canvas {
   width: 100%;
 }
 
-
-
 .sidebar2 ul {
   overflow-x: scroll;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
+  justify-content: center;
   align-items: center;
   cursor: default;
   box-sizing: border-box;
@@ -233,10 +216,9 @@ canvas {
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   gap: 10px;
-  height:70vh;
+  height: 70vh;
   overflow-y: auto;
   margin-top: 30px;
-
 }
 
 .item img {
@@ -275,34 +257,37 @@ canvas {
   width: 17px;
 }
 
-
-
-
-@media screen and (max-width:1008px) {
-
+@media screen and (max-width: 1008px) {
 }
 
-@media screen and (max-width:920) {
+@media screen and (max-width: 920) {
   .sidebar {
-    
   }
 }
 
-@media screen and (max-width:600px) {
-  .rightside {
-    width: 600px;
+@media screen and (max-width: 600px) {
+
+  .wrapper1 {
+    width: 100vw;
   }
+  .rightside, .middleside, .leftside {
+    width: 97vw !important;
+  }
+  .upperside {
+    width: 90vw;
+  }
+
   
 }
 
-
-@media screen and (max-width:930px) {
+@media screen and (max-width: 930px) {
   .wrapper1 {
-    display: flex ;
+    display: flex;
     flex-direction: column-reverse;
     padding-right: 0;
     position: relative;
     height: 100vh;
+    width: 100vw;
     margin: 0;
     padding: 0;
   }
@@ -314,15 +299,24 @@ canvas {
 
   .leftside {
     position: absolute;
-    bottom: 0;
+    bottom: 5px;
     width: 100vw;
     height: 70px;
+  }
+
+  .sidebar {
+    height: 70px;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
   }
 
   .sidebar ul li {
     height: 60px;
   }
-
 
   .addtext {
     height: 400px;
@@ -337,28 +331,22 @@ canvas {
 
   .middleside {
     position: absolute;
-    bottom: 30px;
-    height: 400px;
+    bottom: 90px;
+    height: 350px;
   }
-
-  
 
   .rightside {
     height: 100vh;
   }
 
 
-  .sidebar {
-    height: 50px;
-  }
-  .sidebar ul {
-    display: flex;
-    flex-direction: row;
-  }
-
   .popup {
     height: 350px !important;
     width: 95vw;
+  }
+
+  .item_list {
+    height: 150px;
   }
 
   .item {
@@ -374,13 +362,10 @@ canvas {
   .item.active {
     display: flex;
     flex-direction: row;
-   
+
     overflow-x: scroll;
-
   }
-
-
-
-
-
 }
+
+
+

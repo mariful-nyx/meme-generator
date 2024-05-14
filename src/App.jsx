@@ -1,13 +1,12 @@
-import Meme from './components/Meme';
-import './App.css'
+import Meme from "./components/Meme";
+import "./App.css";
 
 function App() {
-  return(
+  return (
     <div>
-
-     <Meme/>
+      <Meme />
     </div>
-  )
+  );
 }
 
 export default App;

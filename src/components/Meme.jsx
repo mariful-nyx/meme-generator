@@ -38,7 +38,7 @@ const Meme = () => {
       .toDataURL("image/png")
       .replace("image/png", "image/octet-stream");
 
-    var link = document.createElement('a');
+    var link = document.createElement("a");
 
     link.href = image;
 
@@ -75,7 +75,14 @@ const Meme = () => {
     e.preventDefault();
     setObjects([
       ...objects,
-      { type: "hrline", x: 0, y: canvas.current.height/2, w: canvas.current.width, h: 5, dragging: false },
+      {
+        type: "hrline",
+        x: 0,
+        y: canvas.current.height / 2,
+        w: canvas.current.width,
+        h: 5,
+        dragging: false,
+      },
     ]);
   };
 
@@ -83,7 +90,14 @@ const Meme = () => {
     e.preventDefault();
     setObjects([
       ...objects,
-      { type: "vrline", x: canvas.current.width/2, y: 0, w: 5, h: canvas.current.height, dragging: false },
+      {
+        type: "vrline",
+        x: canvas.current.width / 2,
+        y: 0,
+        w: 5,
+        h: canvas.current.height,
+        dragging: false,
+      },
     ]);
   };
 
@@ -130,9 +144,6 @@ const Meme = () => {
   let [startX, setStartX] = useState(0);
   let [startY, setStartY] = useState(0);
 
-
-
-  
   let handleMouseDown = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -172,7 +183,6 @@ const Meme = () => {
       }
     }
 
-
     setStartX(mx);
     setStartY(my);
   };
@@ -205,27 +215,23 @@ const Meme = () => {
         if (r.dragging && r.type === "image") {
           r.x = mx - r.w / 2;
           r.y = my - r.h / 2;
-    
         }
         if (r.dragging) {
           r.x += dx;
           r.y += dy;
-
         }
 
-        draw()
+        draw();
       }
-
-      
 
       setStartX(mx);
       setStartY(my);
-
     }
   };
 
   let [selectedColor, setSelectedColor] = useState("#ffffff");
 
+  // Change Backgound Color from the color palette 
   let handleBgColor = (color) => {
     setSelectedColor(color);
   };
@@ -234,7 +240,7 @@ const Meme = () => {
     draw();
   }, [objects, selectedColor]);
 
-  console.log(objects)
+  console.log(objects);
 
   let clearCanvas = () => {
     let canvas = document.getElementById("canvas");
@@ -285,22 +291,18 @@ const Meme = () => {
 
     ctx.globalCompositeOperation = "destination-over";
     ctx.fillStyle = selectedColor;
-    ctx.fillRect(0, 0, 1280, 720);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
   };
 
-  let [height, setHeight] = useState(window.innerHeight)
-  let [width, setWidth] = useState(window.innerWidth)
-
-
+  let [height, setHeight] = useState(window.innerHeight);
+  let [width, setWidth] = useState(window.innerWidth);
 
   let reSizeHandle = () => {
-    setHeight(window.innerHeight)
-    setWidth(window.innerWidth)
-  }
+    setHeight(window.innerHeight);
+    setWidth(window.innerWidth);
+  };
 
-  window.onresize = reSizeHandle
-
-
+  window.onresize = reSizeHandle;
 
   return (
     <>
@@ -409,17 +411,15 @@ const Meme = () => {
               </div>
             </div>
             <div>
-              
               <canvas
                 ref={canvas}
-                height={height*0.8}
-                width={width*0.6}
-                style={{ border: "1px solid gray" }}
+                height={height * 0.8}
+                width={width * 0.6}
+             
                 id="canvas"
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
                 onMouseMove={handleMouseMove}
-               
               />
             </div>
           </div>
